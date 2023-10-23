@@ -33,7 +33,6 @@ Server serving at 8080 by default
     ```shell
     go run ./server.go
     ```
-or
 2. run via docker-compose (will build server and then run it.)
     ```shell
     docker-compose up
