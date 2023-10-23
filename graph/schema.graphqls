@@ -1,0 +1,92 @@
+scalar DateTime
+
+type Gist {
+  id: ID
+  description: String
+  public: Boolean
+  Owner: User
+  files: [File!]!
+  Comments: Int
+  htmlURL: String
+  gitPullURL: String
+  gitPushURL: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  nodeID: String
+}
+
+type GistComment {
+  id: Int
+  url: String
+  body: String
+  user: User
+  createdAt: DateTime
+}
+
+type GistCommit {
+  url: String
+  version: String
+  user: User
+  change_status: ChangeStatus
+  committed_at: DateTime
+  nodeID: String
+}
+
+type User {
+  name: String
+  email: String
+  login: String
+  avatarURL: String
+  URL: String
+}
+
+type History {
+  user: User
+  version: String
+  committedAt: DateTime
+  changeStatus: ChangeStatus
+  URL: String
+}
+
+type ForkOf {
+  id: ID
+  url: String
+  files: [File!]!
+}
+
+type File {
+  fileName: String
+  type: String
+  language: String
+  rawURL: String
+  size: Int
+}
+
+type ChangeStatus {
+  total: Int
+  additions: Int
+  deletions: Int
+}
+
+type Query {
+  publicGists(since: DateTime!, per_page: Int, page: Int): [Gist!]!
+  gistByID(id: ID!): Gist
+  gistComments(gist_id: ID!, per_page: Int, page: Int): [GistComment!]!
+  gistCommits(gist_id: ID!, per_page: Int, page: Int): [GistCommit!]!
+}
+
+input FileInput {
+  fileName: String!
+  content: String!
+}
+
+input GistInput {
+  description: String!
+  public: Boolean!
+  files: [FileInput]!
+}
+
+type Mutation {
+  createGist(input: GistInput!): Gist
+  updateGist(gist_id: ID!, input: GistInput!): Gist
+}
