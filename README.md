@@ -29,10 +29,11 @@ Thats a proxy that accepts incoming GraphQL request and sends it to Github API t
 
 ### Local run
 Server serving at 8080 by default
-1.
+1. run via go tools
     ```shell
     go run ./server.go
     ```
+or
 2. run via docker-compose (will build server and then run it.)
     ```shell
     docker-compose up
